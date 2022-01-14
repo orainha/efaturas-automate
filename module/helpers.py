@@ -84,3 +84,8 @@ def sheet_to_faturas(fpath):
 
 def recolher_fatura_efaturas():
     pass
+
+
+
+
+
