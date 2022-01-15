@@ -49,17 +49,18 @@ def process_excel(fpath):
             #         print(xlsx)
        
         # To open Workbook
-        wb = xlrd.open_workbook(xlsxFilename)
-        sheet = wb.sheet_by_index(0)
+        try:
+            wb = xlrd.open_workbook(xlsxFilename)
+            sheet = wb.sheet_by_index(0)
+        except IOError as error:
+            print(error)
+        finally:
+            return sheet
 
-        return sheet
 
 
 
-
-def sheet_to_faturas(fpath):
-
-    sheet = process_excel(fpath)
+def sheet_to_faturas(sheet):
 
     faturas = list()
     for row in range(1,sheet.nrows):
@@ -67,11 +68,17 @@ def sheet_to_faturas(fpath):
         # print(sheet.cell_value(row, 0))
         # for col in range(0, sheet.ncols):
             # print(sheet.cell_value(row, col))
-        number = int(sheet.cell_value(row, 0))
-        nif = int(sheet.cell_value(row, 1))
-        sheet_date = sheet.cell_value(row, 2)
-        date = datetime(*xlrd.xldate_as_tuple(sheet_date, 0)).date()
-        value = float(sheet.cell_value(row, 3))
+        try:
+            number = str(sheet.cell_value(row, 0)).split('.')[0]
+            nif = str(sheet.cell_value(row, 1)).split('.')[0]
+            sheet_date = sheet.cell_value(row, 2)
+            date = ""
+            if sheet_date != "":
+                date = str(datetime(*xlrd.xldate_as_tuple(sheet_date, 0)).date())
+            value = str(sheet.cell_value(row, 3)).replace('.',',')
+        except IOError as error:
+            print(error)
+            exit
         
         f = Fatura(number,nif,date,value)
         faturas.append(f)
@@ -82,10 +89,21 @@ def sheet_to_faturas(fpath):
     return faturas
 
 
-def recolher_fatura_efaturas():
-    pass
+def get_faturas(fpath):
+    sheet = process_excel(fpath)
+    faturas = sheet_to_faturas(sheet)
+    
+    return faturas
 
 
-
-
-
+def hasEmptyAttribute(fatura):
+    isEmpty = False
+    if fatura.nif == "":
+        isEmpty = True
+    elif fatura.number == "":
+        isEmpty = True
+    elif fatura.date == "":
+        isEmpty = True
+    elif fatura.value == "":
+        isEmpty = True
+    return isEmpty

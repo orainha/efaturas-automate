@@ -1,0 +1,14 @@
+{
+    "users": 
+        {
+            "Bob":{
+                "name" : "116123032",
+                "password" : "B0b78!$@"
+            },
+            "Alice":            {
+                "name" : "164812373",
+                "password" : "Al1c3#yE"
+            }
+        }
+
+}
