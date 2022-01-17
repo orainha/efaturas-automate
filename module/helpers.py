@@ -4,66 +4,61 @@ import xlrd3 as xlrd# Reading an excel file using Python
 from datetime import datetime
 
 class Fatura:
+    """ Fatura is the portuguese translation of an Invoice. """
     def __init__(self,number,nif,date,value):
-        
-        # validate = [number,nif,date,value]
-        # if self.validate(validate):
         self.number = number
         self.nif = nif
         self.date = date
         self.value = value
-    
-    def validate(list):
-
-        number = list[0]
-        nif = list[1]
-        date = list[2]
-        value = list[3]
-
 
 
 def process_excel(fpath):
+    """ Open xlsx file and return a matrix (with multiple rows and columns) """
 
     if os.path.exists(fpath):
-        
+
         os.chdir(fpath)
 
+        # If there is any xlsx files...
         if len(glob.glob(f"*.xlsx")) > 0:
 
+            # Get xlsx file, whatever its name
+            xlsxFilenames = glob.glob(f"*.xlsx")
+            xlsxFilename = str(xlsxFilenames[0])
+
             # Check if document is open
-            xlsxFilename = glob.glob(f"*.xlsx")
-            xlsxFilename = str(xlsxFilename[0])
-            # print(xlsxFilename)
-            # for xlsx in xlsxFilename:
-            #     if xlsx.find("$") > 0:
-            #         # print("ATENÇÃO: Ficheiro Aberto")
-            #         # return False
-            #         continue
+            # if xlsxFilename.find("$") > 0:
+            #     print("WARNING: File is Open {}".format(xlsxFilename))
+            #     exit
 
-            # # Check if its more than one file to open
-            # if (len(xlsxFilename) > 1):
-            #     print("ATENÇÃO: EXISTE MAIS DO QUE UM FICHEIRO PARA PROCESSAR")
-
-            # for xlsx in xlsxFilename:
-            #     if (len(xlsxFilename) > 1):
-            #         print(xlsx)
+            # Check if its more than one file to open
+            # if (len(xlsxFilenames) > 1):
+            #     print("WARNING: There is more than one file to process.")
+            #     for xlsx in xlsxFilenames:
+            #         if (len(xlsx) > 1):
+            #             print(xlsx)
        
-        # To open Workbook
-        try:
-            wb = xlrd.open_workbook(xlsxFilename)
-            sheet = wb.sheet_by_index(0)
-        except IOError as error:
-            print(error)
-        finally:
-            return sheet
+            # Open Workbook using xlrd
+            try:
+                wb = xlrd.open_workbook(xlsxFilename)
+                sheet = wb.sheet_by_index(0)
+            except IOError as error:
+                print(error)
+            finally:
+                return sheet
+        else:
+            print("There is no xlsx files to process. Exiting...")
+            exit
 
 
 
 
 def sheet_to_faturas(sheet):
+    """ Convert each xlsx sheet row to object of type Fatura, and save into a list """
 
     faturas = list()
     for row in range(1,sheet.nrows):
+        # Debug sheet
         # # For row 0 and column 0
         # print(sheet.cell_value(row, 0))
         # for col in range(0, sheet.ncols):
@@ -83,20 +78,21 @@ def sheet_to_faturas(sheet):
         f = Fatura(number,nif,date,value)
         faturas.append(f)
 
-    # for f in faturas:
-    #     print(f.value)
-
     return faturas
 
 
 def get_faturas(fpath):
+    """ Get Faturas giving the file path only """
+    # Give path to get sheet
     sheet = process_excel(fpath)
+    # Give sheet to get list of faturas
     faturas = sheet_to_faturas(sheet)
     
     return faturas
 
 
 def hasEmptyAttribute(fatura):
+    """ Find Empty attributes of a Fatura """
     isEmpty = False
     if fatura.nif == "":
         isEmpty = True
