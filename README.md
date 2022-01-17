@@ -70,7 +70,7 @@ The code have to changed to accept multiple IVA's:
 - The function 'sheet_to_faturas' and 'hasEmptyAttributes' on helpers.py need to handle IVA field
 - The keys sent to 'iva_box' and 'reason_box' have to be handled on selenium.py
  ```python
-    # selenium.py
+ # selenium.py
     iva_box = driver.find_element(By.ID,"tIva_0")
     # Form selection shorcut, stands for "Isento"
     iva_box.send_keys("i")
