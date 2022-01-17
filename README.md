@@ -53,11 +53,11 @@ xlrd3 is required to open and process xlsx spreedsheets
 ## 3. How to use it
 
 Go to the folder and run main.py, giving the --user
-###The user must be on config/users.json
+##### The user must be on config/users.json
 
 ```shell
 cd efaturas-automate
-python main.py --user {user}
+python main.py --user Bob
 ```
 
 ## 4. License
