@@ -3,6 +3,7 @@
 ## 1. About
 
 The portuguese hand-written invoices (Faturas) have to be manualy inserted one by one on the governament portal website ([efacturas](https://faturas.portaldasfinancas.gov.pt])) which it can be pretty annoying if there is many to insert.
+
 The Goal was to automate this process, which is:
 - Login into [efacturas](https://faturas.portaldasfinancas.gov.pt])
 - Go to "Comerciante"
