@@ -23,7 +23,7 @@ To:
 ```shell
 git clone https://github.com/orainha/efaturas-automate.git
 ```
-2. Config user credentials on config/users.json
+2. Config user credentials on **config/users.json**
 ```python
 {
     "users": 
