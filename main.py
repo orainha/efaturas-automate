@@ -9,7 +9,7 @@ def parse_cmdline():
     description = 'e-faturas insert automate '
     parser = argparse.ArgumentParser(description=description)
     required_group = parser.add_argument_group('required arguments')
-    required_group.add_argument('--user',choices=['albertino', 'valdemar'], required=True, help='--user albertino')
+    required_group.add_argument('--user', required=True, help='--user Bob')
     args = parser.parse_args()
     return args
 
