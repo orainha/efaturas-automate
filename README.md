@@ -45,7 +45,7 @@ git clone https://github.com/orainha/efaturas-automate.git
 ```shell
 pip install xlrd3
 
-#Note:
+# Note:
 xlrd3 is required to open and process xlsx spreedsheets
 ```
 
@@ -53,7 +53,10 @@ xlrd3 is required to open and process xlsx spreedsheets
 
 ## 3. How to use it
 
-Go to the folder and run main.py, giving the --user
+1. Copy your xlxs file to /listagem
+##### Columns must be: NUMBER | NIF | DATE | VALUE
+##### check listagem/example.xlsx for details
+2. Go to the folder and run main.py, giving the --user
 ##### The user must be on config/users.json
 
 ```shell
