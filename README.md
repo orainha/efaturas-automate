@@ -65,7 +65,7 @@ python main.py --user Bob
 ```
 
 ## 4. Notes
-**efaturas-automate** it's programmed to insert all invoices with 0% IVA (tax).
+**efaturas-automate** it's defined to insert all invoices with 0% IVA (tax).
 
 The code have to changed to accept multiple IVA's:
 - The spreeadsheet has to be the IVA field
