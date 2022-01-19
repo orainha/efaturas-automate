@@ -52,12 +52,13 @@ xlrd3 is required to open and process xlsx spreedsheets
 
 ## 3. How to use it
 
-1. Copy your xlxs file to /listagem
+#### 1. Copy your xlxs file to /listagem
 - Columns must be: NUMBER | NIF | DATE | VALUE
 - Check listagem/example.xlsx for details
-2. Go to the folder and run main.py, giving the --user
-##### The user must be on config/users.json
+#### 2. Go to the folder and run main.py, giving the --user
+- The user must be on config/users.json
 
+#### Example:
 ```shell
 cd efaturas-automate
 python main.py --user Bob
