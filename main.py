@@ -3,7 +3,7 @@ import argparse
 import module.helpers as h
 import module.selenium as s
 
-FILEPATH = f"listagem"
+FILEPATH = "listagem"
 
 def parse_cmdline():
     description = 'e-faturas insert automate '
