@@ -20,7 +20,11 @@ def run(args):
 
 def main():
     args = parse_cmdline()
-    run(args)
+    if h.hasInternet():
+        run(args)
+    else:
+        print ("Error. Please check internet connection")
+        print ("Exiting...")
 
 if __name__ == '__main__':
     main()

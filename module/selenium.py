@@ -7,6 +7,7 @@ import time
 
 import module.helpers as h
 
+
 SECONDS_BETWEEN_FATURAS = 3
 
 def run(faturas, user):
@@ -21,11 +22,18 @@ def run(faturas, user):
     # Load user json file - containing the credentials
     f = open(path + "\\config\\users.json")
     data = json.load(f)
+
     try:
-        user = data['users'][user]
+        if h.hasUser(user,data):
+            user = data['users'][user]
+        else:
+            print("Error. Coudn't find user: {}".format(user))
+            print("Exiting...")
+            exit()
     except IOError as error:
         print(error)
-        exit
+        exit()
+
 
     username = user['name']
     password = user['password']
@@ -95,3 +103,7 @@ def run(faturas, user):
                 exit
         
         print("End")
+
+
+
+

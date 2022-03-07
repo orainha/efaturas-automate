@@ -1,7 +1,9 @@
 import os
 import glob
-import xlrd3 as xlrd# Reading an excel file using Python
+import xlrd3 as xlrd # Reading an excel file using Python
 from datetime import datetime
+
+TIMEOUT = 1
 
 class Fatura:
     """ Fatura is the portuguese translation of an Invoice. """
@@ -20,10 +22,10 @@ def process_excel(fpath):
         os.chdir(fpath)
 
         # If there is any xlsx files...
-        if len(glob.glob(f"*.xlsx")) > 0:
+        if len(glob.glob("*.xlsx")) > 0:
 
             # Get xlsx file, whatever its name
-            xlsxFilenames = glob.glob(f"*.xlsx")
+            xlsxFilenames = glob.glob("*.xlsx")
             xlsxFilename = str(xlsxFilenames[0])
 
             # Check if document is open
@@ -103,3 +105,21 @@ def hasEmptyAttribute(fatura):
     elif fatura.value == "":
         isEmpty = True
     return isEmpty
+
+
+def hasInternet(timeout = TIMEOUT):
+    """ Check Internet Connection """
+    cmd = os.system('ping google.com -w 4 > clear')
+    if cmd == 0:
+        return True
+    else:
+        return False
+
+
+def hasUser(user, data):
+    """ Check if user is on config/users.json and
+        save user object on result if found """
+
+    result = [i for i in data['users'] if i == user]
+
+    return True if len(result)>0 else False
