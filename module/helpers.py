@@ -3,7 +3,6 @@ import glob
 import xlrd3 as xlrd # Reading an excel file using Python
 from datetime import datetime
 
-TIMEOUT = 1
 
 class Fatura:
     """ Fatura is the portuguese translation of an Invoice. """
@@ -107,7 +106,7 @@ def hasEmptyAttribute(fatura):
     return isEmpty
 
 
-def hasInternet(timeout = TIMEOUT):
+def hasInternet():
     """ Check Internet Connection """
     cmd = os.system('ping google.com -w 4 > clear')
     if cmd == 0:
