@@ -41,12 +41,9 @@ git clone https://github.com/orainha/efaturas-automate.git
 }
 ```
 
-3. Install xlrd3
+3. Install Dependencies
 ```shell
-pip install xlrd3
-
-# Note:
-xlrd3 is required to open and process xlsx spreedsheets
+pip install -r requirements.txt
 ```
 
 
@@ -61,7 +58,7 @@ xlrd3 is required to open and process xlsx spreedsheets
 
 ```shell
 cd efaturas-automate
-python main.py --user Bob
+python.exe main.py --user Bob
 ```
 
 ## 4. Notes
