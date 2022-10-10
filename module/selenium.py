@@ -42,6 +42,8 @@ def run(faturas, user):
     with Firefox(executable_path = path + '\core\Selenium\geckodriver.exe') as driver:
         # Login into e-facturas
         driver.get("https://www.acesso.gov.pt/jsp/loginRedirectForm.jsp?path=registarDocumentoEmitenteForm.action&partID=EFPF")
+        nif_span_box = driver.find_element_by_css_selector("label[for='tab2']")
+        nif_span_box.click()
         username_box = driver.find_element_by_name("username")
         username_box.send_keys(username)
         password_box = driver.find_element_by_name("password")
@@ -92,9 +94,9 @@ def run(faturas, user):
                 save_btn = driver.find_element(By.ID,"guardarDocumentoBtn")
                 save_btn.click()
 
-                error_box = driver.find_element_by_class_name("alert-error")
-                if error_box != None:
-                    print("Erro ao introduzir a fatura {}".format(fatura.number))
+                # error_box = driver.find_element_by_class_name("alert-error")
+                # if error_box != None:
+                #     print("Erro ao introduzir a fatura {}".format(fatura.number))
 
                 time.sleep(SECONDS_BETWEEN_FATURAS)
 
