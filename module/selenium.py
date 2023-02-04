@@ -1,5 +1,9 @@
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 import json
 import os
@@ -37,6 +41,7 @@ def run(faturas, user):
 
     username = user['name']
     password = user['password']
+    atcud = user['atcud']
 
 
     with Firefox(executable_path = path + '\core\Selenium\geckodriver.exe') as driver:
@@ -71,6 +76,10 @@ def run(faturas, user):
                 number_box = driver.find_element_by_name("numeroDocumento")
                 number_box.send_keys(fatura.number)
                 # number_box.send_keys("1234")
+
+                atcud_box = driver.find_element(By.ID,"atcud")
+                # Form selection shorcut, standf for "Iva - Regime de Isenção Art. 53"
+                atcud_box.send_keys(atcud)
                 
                 doctype_box = driver.find_element_by_name("tipoDocumento")
                 doctype_box.send_keys("F")
@@ -78,19 +87,38 @@ def run(faturas, user):
                 date_box = driver.find_element_by_name("dataEmissaoDocumento")
                 date_box.send_keys(fatura.date)
                 # date_box.send_keys("2022-01-12")
-                
-                value_box = driver.find_element(By.ID,"total_0")
-                value_box.send_keys(fatura.value)
-                # value_box.send_keys("5")
-                
-                iva_box = driver.find_element(By.ID,"tIva_0")
-                # Form selection shorcut, stands for "Isento"
-                iva_box.send_keys("i")
-                
-                reason_box = driver.find_element(By.ID,"motivo_0")
-                # Form selection shorcut, standf for "Iva - Regime de Isenção Art. 53"
-                reason_box.send_keys("ii")
 
+                doc_state = driver.find_element_by_name("estadoDocumento")
+                doc_state.send_keys("n")
+
+                doc_line = driver.find_element_by_xpath("//a[@onclick=\"editar(this)\"]")
+                doc_line.click()
+
+                # -- Line Doc Modal
+
+                select_iva_taxbox = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='taxaIvaVerba']/option[@value='ISE']")))
+                select_iva_taxbox.click()
+
+                select_reason_box = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='motivoIsencao']/option[@value='M10']")))
+                # Form selection shorcut, stand for "Iva - Regime de Isenção Art. 53"
+                select_reason_box.send_keys("M10")
+
+                value_input_box = driver.find_element(By.ID,"totalInput")
+                value_input_box.send_keys(fatura.value)
+
+                debit_credit_box = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='debitoCreditoInput']/option[@value='D']")))
+                debit_credit_box.click()
+
+                # End Line Doc Modal --
+
+                element = driver.find_element_by_xpath("//div[@class='modal-backdrop fade in']")
+                driver.execute_script("arguments[0].style.visibility='hidden'", element)
+
+                confirm_btn = driver.find_element(By.ID,"guardarDetalheLinhaModal")
+                confirm_btn.click()
+
+                # End Line Doc
+                
                 save_btn = driver.find_element(By.ID,"guardarDocumentoBtn")
                 save_btn.click()
 
