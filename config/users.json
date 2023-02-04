@@ -3,11 +3,13 @@
         {
             "Bob":{
                 "name" : "116123032",
-                "password" : "B0b78!$@"
+                "password" : "B0b78!$@",
+                "atcud": "AY6UI4HF"
             },
             "Alice":            {
                 "name" : "164812373",
-                "password" : "Al1c3#yE"
+                "password" : "Al1c3#yE",
+                "atcud": "BY6IO4PZ"
             }
         }
 
