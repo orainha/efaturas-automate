@@ -30,11 +30,13 @@ git clone https://github.com/orainha/efaturas-automate.git
         {
             "Bob":{
                 "name" : "116123032",
-                "password" : "B0b78!$@"
+                "password" : "B0b78!$@",
+                "atcud": "AY6UI4HF"
             },
             "Alice":            {
                 "name" : "164812373",
-                "password" : "Al1c3#yE"
+                "password" : "Al1c3#yE",
+                "atcud": "BY6IO4PZ"
             }
         }
 
@@ -72,13 +74,12 @@ The code have to changed to accept multiple IVA's:
 - The keys sent to 'iva_box' and 'reason_box' have to be handled on selenium.py
  ```python
  # selenium.py
-    iva_box = driver.find_element(By.ID,"tIva_0")
-    # Form selection shorcut, stands for "Isento"
-    iva_box.send_keys("i")
+    select_iva_taxbox = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='taxaIvaVerba']/option[@value='ISE']")))
+    select_iva_taxbox.click()
 
-    reason_box = driver.find_element(By.ID,"motivo_0")
-    # Form selection shorcut, standf for "Iva - Regime de Isenção Art. 53"
-    reason_box.send_keys("ii")
+    select_reason_box = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='motivoIsencao']/option[@value='M10']")))
+    # Form selection shorcut, stand for "Iva - Regime de Isenção Art. 53"
+    select_reason_box.click()
  ```
 
 ## 5. License
