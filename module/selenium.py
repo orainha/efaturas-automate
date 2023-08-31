@@ -95,13 +95,15 @@ def run(faturas, user):
                 doc_line.click()
 
                 # -- Line Doc Modal
-
+                # WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='taxaIvaVerba']/option[@value='ISE']"))).click()
                 select_iva_taxbox = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='taxaIvaVerba']/option[@value='ISE']")))
+                # select_iva_taxbox.location_once_scrolled_into_view
                 select_iva_taxbox.click()
+                # driver.execute_script("arguments[0].click();",select_iva_taxbox)
 
                 select_reason_box = WebDriverWait(driver, 1000000).until(EC.element_to_be_clickable((By.XPATH, "//select[@name='motivoIsencao']/option[@value='M10']")))
                 # Form selection shorcut, stand for "Iva - Regime de Isenção Art. 53"
-                select_reason_box.send_keys("M10")
+                select_reason_box.click()
 
                 value_input_box = driver.find_element(By.ID,"totalInput")
                 value_input_box.send_keys(fatura.value)
